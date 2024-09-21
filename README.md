@@ -3,11 +3,11 @@ This is a containerized version of a `node.js` server that serves markdown files
 ## How to use
 ### Build the image
 ```bash
-docker build -t .
+docker build -t . mfe-markdown-http
 ```
 ### Run the container
 ```bash
-docker run -d -p 3000:3000 -v <TODO> -e <TODO> 
+docker run -d -p 3000:3000 -v <TODO> -e <TODO> mfe-markdown-http
 ```
 or using `docker-compose`:
 ```yaml
