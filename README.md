@@ -3,7 +3,7 @@ This is a containerized version of a `node.js` server that serves markdown files
 ## How to use
 ### Build the image
 ```bash
-docker build -t . mfe-markdown-http
+docker build -t mfe-markdown-http .
 ```
 ### Run the container
 ```bash
