@@ -48,7 +48,7 @@ function linkEval(html, links) {
             ? (text = text.substring(text.indexOf("|") + 1, text.length))
             : text;
         if (url) {
-            html = html.replace(link, `<a href="${url}">${selectedName}</a>`);
+            html = html.replace(link, `<a href="/${url}">${selectedName}</a>`);
         }
     }
     return html;
