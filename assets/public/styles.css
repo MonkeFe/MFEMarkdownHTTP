@@ -1,0 +1,19 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+* {
+    transition: 0.2s all;
+    opacity: 1;
+    transform: translateY(0);
+}
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+.markdown-body {
+    padding: 30px;
+}
+.hidden-animation {
+    opacity: 0;
+    transform: translateY(20px);
+}

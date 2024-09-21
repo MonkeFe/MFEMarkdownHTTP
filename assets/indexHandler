@@ -1,0 +1,11 @@
+#!/bin/bash
+# Periodically overwrite the bash snippet in the file in ./mardown/index.md with the output of the tree command runned in ./mardown
+# This is a simple example of how to use the bash-snippet tool to keep a markdown file up to date with the output of a command
+while true; do
+    # remove old snippet
+    sed -i '/```bash/,/```/d' ./files/index.md
+    echo '```bash' >> ./files/index.md
+    tree ./files --noreport | awk '{if ($0 ~ /\.[^/]+$/) {sub(/([^ ]+)$/, "[[&]]");}print $0;}' >> ./files/index.md
+    echo '```' >> ./files/index.md
+    sleep 5
+done
