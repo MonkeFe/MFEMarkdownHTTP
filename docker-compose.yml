@@ -1,6 +1,4 @@
 services:
   web:
     image: mfe-markdown-http:latest 
-    ports:
-      - "3000:3000"
-
+    network_mode: host
