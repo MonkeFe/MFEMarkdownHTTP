@@ -17,6 +17,5 @@ or using `docker-compose`:
 - [ ] Write example for `docker run` and `docker-compose`
 - [ ] Add support for images
 - [ ] Handle better the LaTeX rendering
-- [ ] **Implement link substitution:**
+- [x] **Implement link substitution:**
     - Many note-taking systems (e.g. Obsidian) use a special syntax for links that is not supported by `marked`. Implement a way to substitute these links with the correct ones.
-
