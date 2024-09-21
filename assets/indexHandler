@@ -5,7 +5,7 @@ while true; do
     # remove old snippet
     sed -i '/```bash/,/```/d' ./files/index.md
     echo '```bash' >> ./files/index.md
-    tree ./files --noreport | awk '{if ($0 ~ /\.[^/]+$/) {sub(/([^ ]+)$/, "[[&]]");}print $0;}' >> ./files/index.md
+    tree -I index.md ./files --noreport | awk '{if ($0 ~ /\.[^/]+$/) {sub(/([^ ]+)$/, "[[&]]");}print $0;}' >> ./files/index.md
     echo '```' >> ./files/index.md
     sleep 5
 done
