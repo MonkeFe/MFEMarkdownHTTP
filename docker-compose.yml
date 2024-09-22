@@ -1,5 +1,5 @@
 services:
   web:
-    image: mfe-markdown-http:latest 
+    build: . 
     ports:
       - "3000:3000"

@@ -11,7 +11,7 @@ docker run -d -p 3000:3000 -v <TODO> -e <TODO> mfe-markdown-http
 ```
 or using `docker-compose`:
 ```yaml
-<TODO>
+docker compose up -d
 ```
 ### TODO
 - [ ] Write example for `docker run` and `docker-compose`
