@@ -60,7 +60,10 @@ function mapTreeLink(tree) {
         if (path.extname(placeholder) === "") {
             return line;
         }
-        return line.replace(placeholder, `[[${placeholder}]]`);
+        return line.replace(
+            placeholder,
+            `[[${placeholder.replace(/\\ /g, " ")}]]`,
+        );
     });
     return tree.join("\n");
 }
