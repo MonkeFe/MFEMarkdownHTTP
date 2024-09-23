@@ -1,4 +1,9 @@
 # MonkeFe Markdown HTTP Server
+## Clone the repo
+To correctly clone the repo, you need to clone the submodules as well:
+```bash
+git clone --recurse-submodules <URL>
+```
 This is a containerized version of a `node.js` server that serves markdown files as HTML. The server is based on the `express` framework and uses the `marked` library to parse the markdown files. The server is expected to visualize markdown, PDFs and images.
 ## How to use
 ### Build the image

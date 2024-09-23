@@ -70,14 +70,12 @@ function mapTreeLink(tree) {
 
 function htmlEval(html, filename) {
     html =
-        filename != "files/index.md"
+        filename != "views/index.md"
             ? `<h1 style="font-size:4em"><a href="/files">${filename.substring(filename.lastIndexOf("/") + 1, filename.length)}</a></h1>${html}`
             : html;
 
-    if (filename == "files/index.md") {
-        const fileStructure = mapTreeLink(
-            execSync("tree -I index.md files").toString(),
-        );
+    if (filename == "views/index.md") {
+        const fileStructure = mapTreeLink(execSync("tree files").toString());
         html += `<pre><code class="language-bash">${fileStructure}</code></pre>`;
     }
 
@@ -142,7 +140,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/files", (req, res) => {
-    handleMD(req, res, "files/index.md");
+    handleMD(req, res, "views/index.md");
 });
 
 const PORT = process.env.PORT || 3000;
