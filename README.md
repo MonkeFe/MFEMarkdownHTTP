@@ -28,7 +28,7 @@ services:
 ```
 Or use prebuilt images:
 ##### x86
-```
+```yaml
 services:
   web:
     image: mfe-markdown-http-x86:latest
@@ -38,7 +38,7 @@ services:
       - "3000:3000"
 ```
 ##### ARM
-```
+```yaml
 services:
   web:
     image: mfe-markdown-http-arm:latest
