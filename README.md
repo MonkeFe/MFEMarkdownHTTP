@@ -8,18 +8,47 @@ This is a containerized version of a `node.js` server that serves markdown files
 ## How to use
 ### Build the image
 ```bash
-docker build -t mfe-markdown-http .
+docker build -t mfe-markdown-http-* .
 ```
 ### Run the container
+#### Detached 
 ```bash
-docker run -d -p 3000:3000 -v <TODO> -e <TODO> mfe-markdown-http
+docker run -d -p 3000:3000 -v '/path/to/files:/app/files' mfe-markdown-http-*
 ```
-or using `docker-compose`:
+#### `docker-compose` (recommended)
+For custom builds:
 ```yaml
-docker compose up -d
+services:
+  web:
+    build: . 
+    volumes:
+      - ./files:/app/files
+    ports:
+      - "3000:3000"
+```
+Or use prebuilt images:
+##### x86
+```
+services:
+  web:
+    image: mfe-markdown-http-x86:latest
+    volumes:
+      - ./files:/app/files
+    ports:
+      - "3000:3000"
+```
+##### ARM
+```
+services:
+  web:
+    image: mfe-markdown-http-arm:latest
+    volumes:
+      - ./files:/app/files
+    ports:
+      - "3000:3000"
 ```
 ### TODO
-- [ ] Write example for `docker run` and `docker-compose`
+- [x] Write example for `docker run` and `docker-compose`
 - [x] Add support for images
 - [x] Handle better the LaTeX rendering
 - [x] **Implement link substitution:**

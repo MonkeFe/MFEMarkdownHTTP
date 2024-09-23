@@ -1,0 +1,7 @@
+services:
+  web:
+    image: mfe-markdown-http-arm:latest
+    volumes:
+      - ./files:/app/files
+    ports:
+      - "3000:3000"
