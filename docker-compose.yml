@@ -1,5 +1,7 @@
 services:
   web:
     build: . 
+    volumes:
+      - ./assets/files:/app/files
     ports:
       - "3000:3000"
