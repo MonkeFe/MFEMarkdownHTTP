@@ -3,9 +3,15 @@ const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
 const marked = require("marked");
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 const { handleJPG, handlePNG, handlePDF } = require("./handlers");
+const { isAuthenticated,  requireAuth } = require("./login.js")
+
 const app = express();
+app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
@@ -125,7 +131,26 @@ function matchFileExtension(req, res, filename) {
     }
 }
 
-app.get("/files/*", (req, res) => {
+app.get('/login', (req, res) => {
+    res.sendFile(__dirname + '/views/login.html');
+});
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+    // Verifica delle credenziali (da implementare)
+    if (username === 'monkeyUser' && password === 'solo-pochi-sanno-la-password') {
+        req.session.userId = username;
+        return res.redirect('/');
+    }
+    res.redirect('/login');
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/login');
+});
+
+app.get("/files/*", requireAuth, (req, res) => {
     if (!req.params[0]) {
         return res.status(404).send("File not found");
     }
@@ -135,11 +160,11 @@ app.get("/files/*", (req, res) => {
     matchFileExtension(req, res, filename);
 });
 
-app.get("/", (req, res) => {
+app.get("/", requireAuth, (req, res) => {
     res.status(301).redirect("/files");
 });
 
-app.get("/files", (req, res) => {
+app.get("/files", requireAuth, (req, res) => {
     handleMD(req, res, "views/index.md");
 });
 
