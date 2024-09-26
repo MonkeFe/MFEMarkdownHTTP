@@ -1,6 +1,9 @@
 services:
   web:
-    build: . 
+    build: .
+    environment:
+      - USER=${USER}
+      - HASHED_PASSWORD=${HASHED_PASSWORD}
     volumes:
       - ./files:/app/files
     ports:

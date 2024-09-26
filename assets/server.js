@@ -1,7 +1,9 @@
 const express = require("express");
+const { env } = require('node:process');
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
+const { createHash } = require('crypto');
 const marked = require("marked");
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -10,9 +12,13 @@ const { handleJPG, handlePNG, handlePDF } = require("./handlers");
 const { isAuthenticated,  requireAuth } = require("./login.js")
 
 const app = express();
-app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
+const sha256 = (input) => { return createHash('sha256').update(input).digest('hex'); }
+
+app.use(session({ secret: 'lk-adsj-fal2432-3423jl-kj', resave: false, saveUninitialized: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/", express.static(path.join(__dirname, "public")));
+
 app.set("view engine", "ejs");
 
 function findOccurence(filename) {
@@ -54,7 +60,7 @@ function linkEval(html, links) {
             ? (text = text.substring(text.indexOf("|") + 1, text.length))
             : text;
         if (url) {
-            html = html.replace(link, `<a href="/${url}">${selectedName}</a>`);
+            html = html.replace(link, `<a href="//${url}">${selectedName}</a>`);
         }
     }
     return html;
@@ -77,7 +83,7 @@ function mapTreeLink(tree) {
 function htmlEval(html, filename) {
     html =
         filename != "views/index.md"
-            ? `<h1 style="font-size:4em"><a href="/files">${filename.substring(filename.lastIndexOf("/") + 1, filename.length)}</a></h1>${html}`
+            ? `<h1 style="font-size:4em"><a href="//files">${filename.substring(filename.lastIndexOf("/") + 1, filename.length)}</a></h1>${html}`
             : html;
 
     if (filename == "views/index.md") {
@@ -101,7 +107,7 @@ function handleMD(req, res, filename) {
         }
         data = handleFrontMatter(data);
         const htmlContent = htmlEval(marked.parse(data), filename);
-        res.render("markdown", { content: htmlContent });
+        res.render("", { content: htmlContent });
     });
 }
 
@@ -138,16 +144,16 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
     // Verifica delle credenziali (da implementare)
-    if (username === 'monkeyUser' && password === 'solo-pochi-sanno-la-password') {
+    if (username === env.USER && sha256(password) === env.HASHED_PASSWORD) {
         req.session.userId = username;
         return res.redirect('/');
     }
-    res.redirect('/login');
+    res.redirect('//login');
 });
 
 app.get('/logout', (req, res) => {
     req.session.destroy();
-    res.redirect('/login');
+    res.redirect('login');
 });
 
 app.get("/files/*", requireAuth, (req, res) => {

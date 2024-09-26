@@ -21,6 +21,9 @@ For custom builds:
 services:
   web:
     build: . 
+    environment:
+      - USER=${USER}
+      - HASHED_PASSWORD=${HASHED_PASSWORD}
     volumes:
       - ./files:/app/files
     ports:
@@ -32,6 +35,9 @@ Or use prebuilt images:
 services:
   web:
     image: mfe-markdown-http-x86:latest
+    environment:
+      - USER=${USER}
+      - HASHED_PASSWORD=${HASHED_PASSWORD}
     volumes:
       - ./files:/app/files
     ports:
@@ -42,6 +48,9 @@ services:
 services:
   web:
     image: mfe-markdown-http-arm:latest
+    environment:
+      - USER=${USER}
+      - HASHED_PASSWORD=${HASHED_PASSWORD}
     volumes:
       - ./files:/app/files
     ports:
