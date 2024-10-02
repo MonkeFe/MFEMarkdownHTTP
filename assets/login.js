@@ -3,6 +3,7 @@ function isAuthenticated(req) {
 }
 
 function requireAuth(req, res, next) {
+
     if (!isAuthenticated(req)) {
         return res.redirect('/login');
     }

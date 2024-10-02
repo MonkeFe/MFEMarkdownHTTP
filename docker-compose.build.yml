@@ -2,9 +2,9 @@ services:
   web:
     build: .
     environment:
-      - USER=${USER}
+      - USER_LOGIN=${USER_LOGIN}
       - HASHED_PASSWORD=${HASHED_PASSWORD}
     volumes:
-      - ./files:/app/files
+      - ../UniNotes:/app/files
     ports:
       - "3000:3000"

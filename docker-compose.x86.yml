@@ -2,7 +2,7 @@ services:
   web:
     image: mfe-markdown-http-x86:latest
     environment:
-      - USER=${USER}
+      - USER_LOGIN=${USER}
       - HASHED_PASSWORD=${HASHED_PASSWORD}
     volumes:
       - ./files:/app/files
